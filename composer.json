@@ -12,11 +12,5 @@
         "psr-4": {
             "BarCode\\": "src"
         }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "BarCode\\Test\\": "tests",
-            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
-        }
     }
 }
