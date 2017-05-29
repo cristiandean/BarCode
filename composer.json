@@ -1,5 +1,5 @@
 {
-    "name": "cristiandean/BarCode",
+    "name": "cristiandean/bar-code",
     "description": "BarCode plugin for CakePHP",
     "type": "cakephp-plugin",
     "require": {
