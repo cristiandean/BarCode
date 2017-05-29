@@ -14,5 +14,5 @@ composer require cristiandean/bar-code
 
 Then in your `config\bootstrap.php`:
 ```php
-Plugin::load('BarCode', ['bootstrap' => true]);
+Plugin::load('BarCode');
 ```
