@@ -74,8 +74,8 @@ class BarCodeComponent extends Component
         $p_label = isset($options['p_label']) ? $options['p_label'] : 'N';
         $p_rotAngle = isset($options['p_rotAngle']) ? $options['p_rotAngle'] : 0;
         $p_toFile = isset($options['p_toFile']) ? $options['p_toFile'] : 'N';
-        $p_checkDigit = isset($options['p_checkDigit']) ? ''
-            $p_fileName = isset($options['p_fileName']) ? $options['p_fileName'] : 'code39';
+        $p_checkDigit = isset($options['p_checkDigit']) ? isset($options['p_checkDigit']) : '';
+        $p_fileName = isset($options['p_fileName']) ? $options['p_fileName'] : 'code39';
         $p_inverted = $p_invert == 'N';
         $p_2File = $p_toFile == "N";
         $p_textLabel = $p_label == "N";
