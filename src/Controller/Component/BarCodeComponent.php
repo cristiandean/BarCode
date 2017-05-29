@@ -969,12 +969,30 @@ class BarCodeComponent extends Component
 
     }
 
-    /* wrapper */
-
-    public function wrapper($p_bcType = null, $p_text = null, $p_bcType = null, $p_text = null, $p_xDim = null, $p_w2n = null, $p_charGap = null, $p_invert = null, $p_charHeight = null, $p_type = null, $p_label = null, $p_rotAngle = null, $p_checkDigit = null, $p_toFile = null, $p_fileName = null)
+    /**
+     * The options array accept the following keys:
+     *
+     * - $p_barcodeType, // Type of barcode to be generated
+     * - $p_origText, // Text to be generated as barcode
+     * - $p_xDim, // smallest ellement width
+     * - $p_w2n, // wide to narrow factor
+     * - $p_charGap, // Intercharacter gap width. usually the same as xDim
+     * - $p_invert, // Whether or not invert starting bar colors
+     * - $p_charHeight, // height in pixels of a single character
+     * - $p_imgType, // image type output
+     * - $p_drawLabel, // Whether or not include a text label below barcode
+     * - $p_rotationAngle, // Barcode Image rotation angle
+     * - $p_check, // Whether or not include check digit
+     * - $p_toFile, // Whether or not write to file
+     * - $p_fileName // File name to use in case of writing to file
+     *
+     * @param array $options list of options to configure the barcode
+     * @return void
+     */
+    public function wrapper($options = [])
     {
-        // simple hotlinking prevention
-        //-----------------------------
+
+        $p_text = null, $p_bcType = null, $p_text = null, $p_xDim = null, $p_w2n = null, $p_charGap = null, $p_invert = null, $p_charHeight = null, $p_type = null, $p_label = null, $p_rotAngle = null, $p_checkDigit = null, $p_toFile = null, $p_fileName = null
         if (is_null(Configure::read('Barcode.disallowHotlinking')) || Configure::read('Barcode.disallowHotlinking')) {
             $there = $this->getController()->request->referer();
             $here = Router::url('/', true);
@@ -985,70 +1003,23 @@ class BarCodeComponent extends Component
                 }
             }
         }
-        //-----------------------------
 
-        // default values
-        if ($p_text == null) {
-            $p_text = "123";
-        } else {
-            $p_text = rawurldecode($p_text);
-        }
-
-        if ($p_bcType == null) {
-            $p_bcType = 1;
-        }
-        if ($p_xDim == null) {
-            $p_xDim = 2;
-        }
-        if ($p_w2n == null) {
-            $p_w2n = 2;
-        }
-        if ($p_charGap == null) {
-            $p_charGap = $p_xDim;
-        }
-        if ($p_invert == null) {
-            $p_invert = "N";
-        }
-        if ($p_charHeight == null) {
-            $p_charHeight = 50;
-        }
-        if ($p_type == null) {
-            $p_type = 1;
-        }
-        if ($p_label == null) {
-            $p_label = "N";
-        }
-        if ($p_rotAngle == null) {
-            $p_rotAngle = 0;
-        }
-        if ($p_toFile == null) {
-            $p_toFile = "N";
-        }
-        if ($p_fileName == null) {
-            $p_fileName = "code39";
-        }
-
-
-        if ($p_invert == "N") {
-            $p_inverted = FALSE;
-        } else {
-            $p_inverted = TRUE;
-        }
-        if ($p_toFile == "N") {
-            $p_2File = FALSE;
-        } else {
-            $p_2File = TRUE;
-        }
-        if ($p_label == "N") {
-            $p_textLabel = FALSE;
-        } else {
-            $p_textLabel = TRUE;
-        }
-        if ($p_checkDigit == "N") {
-            $p_ck = FALSE;
-        } else {
-            $p_ck = TRUE;
-        }
+        $p_text = isset($options['p_text']) ? rawurldecode($options['p_text']) : "123";
+        $p_bcType = isset($options['p_bcType']) ? $options['p_bcType'] : 1;
+        $p_xDim = isset($options['p_xDim']) ? $options['p_xDim'] : 2;
+        $p_w2n = isset($options['p_w2n']) ? $options['p_w2n'] : 2;
+        $p_charGap = isset($options['p_charGap']) ? $options['p_charGap'] : $p_xDim;
+        $p_invert = isset($options['p_invert']) ? $options['p_invert'] : 'N';
+        $p_charHeight = isset($options['p_charHeight']) ? $options['p_charHeight'] : 50;
+        $p_type = isset($options['p_type']) ? $options['p_type'] : 1;
+        $p_label = isset($options['p_label']) ? $options['p_label'] : 'N';
+        $p_rotAngle = isset($options['p_rotAngle']) ? $options['p_rotAngle'] : 0;
+        $p_toFile = isset($options['p_toFile']) ? $options['p_toFile'] : 'N';
+        $p_fileName = isset($options['p_fileName']) ? $options['p_fileName'] : 'code39';
+        $p_inverted = $options['p_invert'] == 'N';
+        $p_2File = $p_toFile == "N";
+        $p_textLabel = $p_label == "N";
+        $p_ck = $p_checkDigit == "N";
 
 
         $this->barCode(
